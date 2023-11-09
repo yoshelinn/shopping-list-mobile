@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list/screens/shoplist_form.dart';
 import 'package:shopping_list/widgets/left_drawer.dart';
+import 'package:shopping_list/widgets/shop_card.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
@@ -8,7 +10,6 @@ class MyHomePage extends StatelessWidget {
     ShopItem("Tambah Produk", Icons.add_shopping_cart, Colors.green),
     ShopItem("Logout", Icons.logout, Colors.red),
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,13 +80,22 @@ class ShopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: item.color, // Use the color property
+      color: Colors.indigo,
       child: InkWell(
+        // Area responsive terhadap sentuhan
         onTap: () {
+          // Memunculkan SnackBar ketika diklik
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text("${item.name} Successfully!")));
+                content: Text("Kamu telah menekan tombol ${item.name}!")));
+          // Navigate ke route yang sesuai (tergantung jenis tombol)
+          if (item.name == "Tambah Produk") {
+            // TODO: Gunakan Navigator.push untuk melakukan navigasi ke MaterialPageRoute yang mencakup ShopFormPage.
+            Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ShopFormPage()));
+    
+          }
         },
         child: Container(
           // Container untuk menyimpan Icon dan Text
